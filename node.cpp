@@ -126,8 +126,8 @@ node node::operator[](std::uint64_t n) const
     // 64-bit integers in string form have the possibility of not getting SSO,
     // so to ensure that no allocations occur we use `snprintf()`.
     char buf[21];
-    auto len = std::snprintf(buf, 21, "%lu", n);
-    return operator[](std::string_view{buf, len});
+    auto len = std::snprintf(buf, 21, "%llu", n);
+    return operator[](std::string_view{buf, static_cast<size_t>(len)});
 }
 
 node node::operator[](std::int64_t n) const
@@ -135,8 +135,8 @@ node node::operator[](std::int64_t n) const
     // 64-bit integers in string form have the possibility of not getting SSO,
     // so to ensure that no allocations occur we use `snprintf()`.
     char buf[21];
-    auto len = std::snprintf(buf, 21, "%ld", n);
-    return operator[](std::string_view{buf, len});
+    auto len = std::snprintf(buf, 21, "%lld", n);
+    return operator[](std::string_view{buf, static_cast<size_t>(len)});
 }
 
 node node::operator[](std::string_view o) const
